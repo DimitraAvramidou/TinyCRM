@@ -9,6 +9,7 @@ namespace TinyCRM
 {
 	public class Customer
     {
+        public string CustomerId { get; set; }
         public string Email {get; set;}
         public string VatNumber { get; set; }
         public string Phone { get; set; }
@@ -17,15 +18,19 @@ namespace TinyCRM
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string IsActive { get; set; }
-
         public int Age { get; set; }
-        public Customer(string vatNumber)
+
+        public List<Order> OrderList { get; set; }
+
+        
+        public Customer()
         {
-            if(!IsValidVatNumber(vatNumber))
-            {
-                throw new Exception("Invalid VatNumber");
-            }
-            VatNumber = vatNumber;
+            OrderList = new List<Order>();
+            //if (!IsValidVatNumber(vatNumber))
+            //{
+            //    throw new Exception("Invalid VatNumber");
+            //}
+            //VatNumber = vatNumber;
             Created = DateTime.Now;
         }
         
@@ -84,6 +89,23 @@ namespace TinyCRM
             return false;
 
         }
+
+        public void MakeAnOrder(List<Product> productlist)
+        {
+            var order = new Order(productlist);
+            OrderList.Add(order);
+        }
+
+        public decimal CountOrdersTotalAmount()
+        {
+            decimal CountAmountOfOrder=0.0M;
+            for (int i = 0; i < OrderList.Count; i++)
+            {
+                CountAmountOfOrder = OrderList[i].CountTotalAmount();
+            }
+            return CountAmountOfOrder;
+        }
+
 
     }
 

@@ -15,7 +15,7 @@ namespace TinyCRM
 
         public Product()
         {
-
+            
         }       
     }
 }
